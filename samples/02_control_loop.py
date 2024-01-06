@@ -8,11 +8,11 @@ ctrl_p = sympy.symbols('P')
 
 # create SFG, with the control loop grouped as "Loop"
 control_loop = SFG(group_name_separator='.')
-control_loop.add('Ref', 'Loop.Δ') # note that you could also define node names as a tuple (group_name,node_name)
-control_loop.add('Loop.Δ', 'Loop.Ctrl')
+control_loop.add('Ref', 'Loop.Σ') # note that you could also define node names as a tuple (group_name,node_name)
+control_loop.add('Loop.Σ', 'Loop.Ctrl')
 control_loop.add('Loop.Ctrl', 'Loop.Sys', ctrl_p)
 control_loop.add('Loop.Sys', 'Out')
-control_loop.add('Loop.Sys', 'Loop.Δ', -1)
+control_loop.add('Loop.Sys', 'Loop.Σ', -1)
 
 # create plot
 control_loop.graph_node_args['color'] = 'SkyBlue' # customize grapviz
