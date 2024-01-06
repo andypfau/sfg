@@ -46,12 +46,12 @@ Example code; see also `samples/01_minimal.py.py` and `samples/02_control_loop.p
     import sympy
 
     # create SFG
-    control_loop = SFG()
-    control_loop.add('Ref', 'Δ')
-    control_loop.add('Σ', 'Ctrl')
-    control_loop.add('Ctrl', 'Sys', sympy.symbols('P'))
-    control_loop.add('Sys', 'Out')
-    control_loop.add('Sys', 'Σ', -1)
+    control_loop = SFG(group_name_separator='.')
+    control_loop.add('Ref', 'Loop.Σ')
+    control_loop.add('Loop.Σ', 'Loop.Ctrl')
+    control_loop.add('Loop.Ctrl', 'Loop.Sys', ctrl_p)
+    control_loop.add('Loop.Sys', 'Out')
+    control_loop.add('Loop.Sys', 'Loop.Σ', -1)
 
     # plot it
     g = control_loop.plot()
