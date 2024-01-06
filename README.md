@@ -38,7 +38,36 @@ For a simple demo, just run any of the Python files in the `samples` folder.
     - The gain is calculated using [Mason's gain formula](https://en.wikipedia.org/wiki/Mason's_gain_formula).
     - See demo `samples/01_minimal.py.py` for an example.
 
-### Example Applications
+##### Example
+
+Example code; see also `samples/01_minimal.py.py`:
+
+    from lib import SFG
+
+    # create SFG
+    controller_p = 1e3
+    control_loop = SFG()
+    control_loop.add('Ref', 'Δ')set to 1
+    control_loop.add('Σ', 'Ctrl')
+    control_loop.add('Ctrl', 'Sys', controller_p)
+    control_loop.add('Sys', 'Out')
+    control_loop.add('Sys', 'Σ', -1)
+
+    # plot it
+    g = control_loop.plot()
+    ...
+
+    # calculate the gain from reference to output
+    total_gain = control_loop.calculate_gain('Ref', 'Out')
+    ...
+
+The resulting graph is:
+<img src="./doc/demo_sfg_controlloop.svg" height="100" />
+
+The resulting gain is `0.999` ≈ 1.
+
+
+### Applications
 
 - [Control loops](https://en.wikipedia.org/wiki/Control_loop) (see demo `samples/01_minimal.py.py`)
 - [Scattering Parameters](https://en.wikipedia.org/wiki/) (see `samples/03_forced_match.py` )
