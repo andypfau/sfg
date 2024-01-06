@@ -62,6 +62,7 @@ Example code; see also `samples/01_minimal.py.py`:
     ...
 
 The resulting graph is:
+
 <img src="./doc/demo_sfg_controlloop.svg" height="100" />
 
 The resulting gain is `0.999` ≈ 1.
