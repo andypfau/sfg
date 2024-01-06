@@ -49,7 +49,7 @@ Example code; see also `samples/01_minimal.py.py` and `samples/02_control_loop.p
     control_loop = SFG(group_name_separator='.')
     control_loop.add('Ref', 'Loop.Σ')
     control_loop.add('Loop.Σ', 'Loop.Ctrl')
-    control_loop.add('Loop.Ctrl', 'Loop.Sys', ctrl_p)
+    control_loop.add('Loop.Ctrl', 'Loop.Sys', sympy.symbols('P'))
     control_loop.add('Loop.Sys', 'Out')
     control_loop.add('Loop.Sys', 'Loop.Σ', -1)
 
