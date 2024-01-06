@@ -3,6 +3,12 @@ SFG
 
 [Signal flow graph](https://en.wikipedia.org/wiki/Signal-flow_graph) calculation and plotting in Python.
 
+Key features:
+- Simple definition of the network by calling `add(source_name, destination_name, weight)` for each node in the graph.
+- Plotting using the [graphviz](https://pypi.org/project/graphviz/) package, allowing to define groups for better readability.
+- Calculating any path gain using [Mason's gain formula](https://en.wikipedia.org/wiki/Mason's_gain_formula).
+- Allowing to use [sympy](https://pypi.org/project/sympy/) symbols to calculate the gain as an algebraic expression.
+
 
 ## Requirements
 
@@ -23,11 +29,11 @@ For a simple demo, just run any of the Python files in the `samples` folder.
 2. Add all paths of the system:
     - Each path consists of a source node, a destination node, and a weight (gain).
         - If not specified, the weight is implicitly set to 1.
-        - A weight may be a numeric value, or e.g. a [sympy](https://pypi.org/project/sympy/) symbol.
+        - A weight may be a numeric value, or e.g. a `sympy` symbol.
     - A node name may be a string, or a tuple `(group,name)` if you want to group nodes in groups.
         - Alternatively, you can specify a separator in the constructor; then every name is split into group and name by the seprator.
         - See demo `samples/02_control_loop.py` for an example.
-3. Create a plot of the SFG by calling the `plot()` function, using the [graphviz](https://pypi.org/project/graphviz/) package.
+3. Create a plot of the SFG by calling the `plot()` function.
     - The function will return the graph as a `graphviz.Digraph` object, which you can save or display.
         - See demo `samples/01_minimal.py.py` for an example.
     - You can also plot all loops in the system, by calling the `plot_loops()` function.
@@ -35,7 +41,6 @@ For a simple demo, just run any of the Python files in the `samples` folder.
     - You can also plot all forward paths of a specified path in the system, by calling the `plot_paths()` function, with the names of the source and destination nodes as arguments.
         - See demo `samples/02_control_loop.py` for an example.
 4. Calculate the path gain by calling the `calculate_gain()` method.
-    - The gain is calculated using [Mason's gain formula](https://en.wikipedia.org/wiki/Mason's_gain_formula).
     - See demo `samples/01_minimal.py.py` for an example.
 
 ##### Example
