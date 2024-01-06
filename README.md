@@ -62,7 +62,7 @@ Example code; see also `samples/01_minimal.py.py` and `samples/02_control_loop.p
 
 The resulting graph is:
 
-<img src="./doc/demo_sfg_controlloop.svg" height="100" />
+<img src="./doc/demo_sfg_controlloop.svg" height="150" />
 
 The resulting gain is `P/(P+1)`.
 
