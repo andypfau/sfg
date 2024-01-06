@@ -40,32 +40,31 @@ For a simple demo, just run any of the Python files in the `samples` folder.
 
 ##### Example
 
-Example code; see also `samples/01_minimal.py.py`:
+Example code; see also `samples/01_minimal.py.py` and `samples/02_control_loop.py`:
 
     from lib import SFG
+    import sympy
 
     # create SFG
-    controller_p = 1e3
     control_loop = SFG()
-    control_loop.add('Ref', 'Δ')set to 1
+    control_loop.add('Ref', 'Δ')
     control_loop.add('Σ', 'Ctrl')
-    control_loop.add('Ctrl', 'Sys', controller_p)
+    control_loop.add('Ctrl', 'Sys', sympy.symbols('P'))
     control_loop.add('Sys', 'Out')
     control_loop.add('Sys', 'Σ', -1)
 
     # plot it
     g = control_loop.plot()
-    ...
+    ... # save or display the graph
 
     # calculate the gain from reference to output
     total_gain = control_loop.calculate_gain('Ref', 'Out')
-    ...
 
 The resulting graph is:
 
 <img src="./doc/demo_sfg_controlloop.svg" height="100" />
 
-The resulting gain is `0.999` ≈ 1.
+The resulting gain is `P/(P+1)`.
 
 
 ### Applications
