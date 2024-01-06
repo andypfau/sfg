@@ -23,29 +23,9 @@ Tested with Python 3.12.
 
 For a simple demo, just run any of the Python files in the `samples` folder.
 
-### Basic Concept
+##### Quick Example
 
-1. Create a SFG object.
-2. Add all paths of the system:
-    - Each path consists of a source node, a destination node, and a weight (gain).
-        - If not specified, the weight is implicitly set to 1.
-        - A weight may be a numeric value, or e.g. a `sympy` symbol.
-    - A node name may be a string, or a tuple `(group,name)` if you want to group nodes in groups.
-        - Alternatively, you can specify a separator in the constructor; then every name is split into group and name by the seprator.
-        - See demo `samples/02_control_loop.py` for an example.
-3. Create a plot of the SFG by calling the `plot()` function.
-    - The function will return the graph as a `graphviz.Digraph` object, which you can save or display.
-        - See demo `samples/01_minimal.py.py` for an example.
-    - You can also plot all loops in the system, by calling the `plot_loops()` function.
-        - See demo `samples/02_control_loop.py` for an example.
-    - You can also plot all forward paths of a specified path in the system, by calling the `plot_paths()` function, with the names of the source and destination nodes as arguments.
-        - See demo `samples/02_control_loop.py` for an example.
-4. Calculate the path gain by calling the `calculate_gain()` method.
-    - See demo `samples/01_minimal.py.py` for an example.
-
-##### Example
-
-Example code; see also `samples/01_minimal.py.py` and `samples/02_control_loop.py`:
+See also `samples/01_minimal.py.py` and `samples/02_control_loop.py`:
 
     from lib import SFG
     import sympy
@@ -71,6 +51,26 @@ The resulting graph is:
 
 The resulting gain is `P/(P+1)`.
 
+### Basic Concept
+
+1. Create a SFG object.
+2. Add all paths of the system:
+    - Each path consists of a source node, a destination node, and a weight (gain).
+        - If not specified, the weight is implicitly set to 1.
+        - A weight may be a numeric value, or e.g. a `sympy` symbol.
+    - A node name may be a string, or a tuple `(group,name)` if you want to group nodes in groups.
+        - The groups are only used for plotting, where it might help for visualization of complex graphs.
+        - Alternatively, you can specify a separator in the constructor; then every name is split into group and name by the seprator.
+        - See demo `samples/02_control_loop.py` for an example.
+3. Create a plot of the SFG by calling the `plot()` function.
+    - The function will return the graph as a `graphviz.Digraph` object, which you can save or display.
+        - See demo `samples/01_minimal.py.py` for an example.
+    - You can also plot all loops in the system, by calling the `plot_loops()` function.
+        - See demo `samples/02_control_loop.py` for an example.
+    - You can also plot all forward paths of a specified path in the system, by calling the `plot_paths()` function, with the names of the source and destination nodes as arguments.
+        - See demo `samples/02_control_loop.py` for an example.
+4. Calculate the path gain by calling the `calculate_gain()` method.
+    - See demo `samples/01_minimal.py.py` for an example.
 
 ### Applications
 
