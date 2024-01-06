@@ -19,11 +19,11 @@ Tested with Python 3.12.
 
 ## How To Use
 
-### Demos
+### Demo Files
 
 For a simple demo, just run any of the Python files in the `samples` folder.
 
-##### Quick Example
+#### Quick Example
 
 See also `samples/01_minimal.py.py` and `samples/02_control_loop.py`:
 
