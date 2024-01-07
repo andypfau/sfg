@@ -5,25 +5,55 @@ from types import SimpleNamespace
 from collections import defaultdict
 
 
-#SfgNodeName = Union[tuple[str,str],str]
-
-
 class SFG:
 
+    class GraphAttrPresets:
+        
+        GraphvizDefault = SimpleNamespace(graph=dict(), group=dict(), node=dict(), edge=dict())
+        
+        SfgDefault = SimpleNamespace(
+            graph=dict(
+                rankdir='LR',
+            ),
+            group=dict(
+                shape='rectangle',
+                style='filled,rounded',
+                color='GreenYellow',
+            ),
+            node=dict(
+                shape='circle',
+                style='filled,solid',
+                fillcolor='HotPink',
+                pencolor='Black',
+            ),
+            edge=dict(
+            ),
+        )
 
-    def __init__(self, group_name_separator: "str|None" = None):
+        Monochrome = SimpleNamespace(
+            graph=dict(
+                rankdir='LR',
+            ),
+            group=dict(
+                shape='rectangle',
+                style='dashed',
+            ),
+            node=dict(
+                shape='circle',
+            ),
+            edge=dict(
+            ),
+        )
+
+
+    def __init__(self, group_name_sep: "str|None" = None):
         def lf():
             return []
         self._list_factory = lf
         self.graph: dict[str,list]
         self.graph = defaultdict(self._list_factory)
-        self.group_name_separator = group_name_separator
-        
-        # graphviz formatting
-        self.graph_attrs = dict(rankdir='LR')
-        self.graph_group_args = dict(style='filled', color='GreenYellow')
-        self.graph_node_attrs = dict(shape='circle')
-        self.graph_node_args = dict(style='filled', color='DeepPink')
+        self.group_name_separator = group_name_sep
+        self.graph_attrs = SFG.GraphAttrPresets.SfgDefault
     
 
     def add(self, from_node: "tuple[str,str]|str", to_node: "tuple[str,str]|str", weight = 1):
@@ -187,8 +217,7 @@ class SFG:
     def _plot(self, graph: dict[tuple[str,str],list], name) -> Digraph:
         """ Create a graphviz Digraph """
         g = Digraph('G', filename=name)
-        g.attr(**self.graph_attrs)
-        g.attr('node', self.graph_node_attrs)
+        g.attr(**self.graph_attrs.graph)
 
         all_nodes = []
         all_groups = []
@@ -203,21 +232,23 @@ class SFG:
             if graphed_group is None:
                 continue
             with g.subgraph(name=f'cluster_{i}') as gsub:
-                gsub.attr(**self.graph_group_args)
-                gsub.attr(label=str(graphed_group))
+                gsub.attr(label=str(graphed_group), **self.graph_attrs.group)
                 for (group,name) in all_nodes:
                     if group!=graphed_group:
                         continue
-                    gsub.node(str((group,name)), label=name, **self.graph_node_args)
+                    gsub.attr('node', **self.graph_attrs.node)
+                    gsub.node(str((group,name)), label=name)
         
         for (group,name) in all_nodes:
             if group is not None:
                 continue
-            g.node(str((group,name)), label=name, **self.graph_node_args)
+            g.attr('node', **self.graph_attrs.node)
+            g.node(str((group,name)), label=name)
 
         
         for source,destinations in graph.items():
             for (dest,weight) in destinations:
+                g.attr('edge', **self.graph_attrs.edge)
                 g.edge(str(source), str(dest), label=str(weight))
         
         return g

@@ -13,7 +13,7 @@ control_loop.add('Sys', 'Σ', -1)
 
 # plot it
 g = control_loop.plot()
-g.render(outfile='output/minimal.pdf', view=True, cleanup=True)
+g.render(outfile='output/01_minimal.pdf', view=True, cleanup=True)
 
 # calculate the gain from reference to output
 total_gain = control_loop.calculate_gain('Ref', 'Out')

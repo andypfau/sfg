@@ -11,19 +11,19 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-163 408.63,-163 408.63,4 -4,4"/>
 <g id="clust1" class="cluster">
 <title>cluster_1</title>
-<polygon fill="GreenYellow" stroke="GreenYellow" points="83.2,-8 83.2,-151 320.4,-151 320.4,-8 83.2,-8"/>
+<path fill="GreenYellow" stroke="GreenYellow" d="M95.2,-8C95.2,-8 308.4,-8 308.4,-8 314.4,-8 320.4,-14 320.4,-20 320.4,-20 320.4,-139 320.4,-139 320.4,-145 314.4,-151 308.4,-151 308.4,-151 95.2,-151 95.2,-151 89.2,-151 83.2,-145 83.2,-139 83.2,-139 83.2,-20 83.2,-20 83.2,-14 89.2,-8 95.2,-8"/>
 <text text-anchor="middle" x="201.8" y="-133.7" font-family="Times,serif" font-size="14.00">Loop</text>
 </g>
 <!-- (&#39;Loop&#39;, &#39;Σ&#39;) -->
 <g id="node1" class="node">
 <title>(&#39;Loop&#39;, &#39;Σ&#39;)</title>
-<ellipse fill="SkyBlue" stroke="SkyBlue" cx="109.2" cy="-85" rx="18" ry="18"/>
+<ellipse fill="HotPink" stroke="black" cx="109.2" cy="-85" rx="18" ry="18"/>
 <text text-anchor="middle" x="109.2" y="-79.95" font-family="Times,serif" font-size="14.00">Σ</text>
 </g>
 <!-- (&#39;Loop&#39;, &#39;Ctrl&#39;) -->
 <g id="node2" class="node">
 <title>(&#39;Loop&#39;, &#39;Ctrl&#39;)</title>
-<ellipse fill="SkyBlue" stroke="SkyBlue" cx="195.2" cy="-41" rx="25.25" ry="25.25"/>
+<ellipse fill="HotPink" stroke="black" cx="195.2" cy="-41" rx="25.25" ry="25.25"/>
 <text text-anchor="middle" x="195.2" y="-35.95" font-family="Times,serif" font-size="14.00">Ctrl</text>
 </g>
 <!-- (&#39;Loop&#39;, &#39;Σ&#39;)&#45;&gt;(&#39;Loop&#39;, &#39;Ctrl&#39;) -->
@@ -36,7 +36,7 @@
 <!-- (&#39;Loop&#39;, &#39;Sys&#39;) -->
 <g id="node3" class="node">
 <title>(&#39;Loop&#39;, &#39;Sys&#39;)</title>
-<ellipse fill="SkyBlue" stroke="SkyBlue" cx="288.18" cy="-80" rx="24.23" ry="24.23"/>
+<ellipse fill="HotPink" stroke="black" cx="288.18" cy="-80" rx="24.23" ry="24.23"/>
 <text text-anchor="middle" x="288.18" y="-74.95" font-family="Times,serif" font-size="14.00">Sys</text>
 </g>
 <!-- (&#39;Loop&#39;, &#39;Ctrl&#39;)&#45;&gt;(&#39;Loop&#39;, &#39;Sys&#39;) -->
@@ -56,7 +56,7 @@
 <!-- (None, &#39;Out&#39;) -->
 <g id="node5" class="node">
 <title>(None, &#39;Out&#39;)</title>
-<ellipse fill="SkyBlue" stroke="SkyBlue" cx="379.89" cy="-80" rx="24.74" ry="24.74"/>
+<ellipse fill="HotPink" stroke="black" cx="379.89" cy="-80" rx="24.74" ry="24.74"/>
 <text text-anchor="middle" x="379.89" y="-74.95" font-family="Times,serif" font-size="14.00">Out</text>
 </g>
 <!-- (&#39;Loop&#39;, &#39;Sys&#39;)&#45;&gt;(None, &#39;Out&#39;) -->
@@ -69,7 +69,7 @@
 <!-- (None, &#39;Ref&#39;) -->
 <g id="node4" class="node">
 <title>(None, &#39;Ref&#39;)</title>
-<ellipse fill="SkyBlue" stroke="SkyBlue" cx="24.23" cy="-85" rx="24.23" ry="24.23"/>
+<ellipse fill="HotPink" stroke="black" cx="24.23" cy="-85" rx="24.23" ry="24.23"/>
 <text text-anchor="middle" x="24.23" y="-79.95" font-family="Times,serif" font-size="14.00">Ref</text>
 </g>
 <!-- (None, &#39;Ref&#39;)&#45;&gt;(&#39;Loop&#39;, &#39;Σ&#39;) -->

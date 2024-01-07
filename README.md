@@ -31,7 +31,7 @@ See also `samples/01_minimal.py.py` and `samples/02_control_loop.py`:
     import sympy
 
     # create SFG
-    control_loop = SFG(group_name_separator='.')
+    control_loop = SFG(group_name_sep='.')
     control_loop.add('Ref', 'Loop.Σ')
     control_loop.add('Loop.Σ', 'Loop.Ctrl')
     control_loop.add('Loop.Ctrl', 'Loop.Sys', sympy.symbols('P'))
@@ -49,7 +49,7 @@ The resulting graph is:
 
 <img src="./doc/demo_sfg_controlloop.svg" height="150" />
 
-The resulting gain is `P/(P+1)`.
+The resulting gain is `P/(P+1)` - a `sympy` expression that you can use to do algebra! If you would have used a float value of e.g. `1000` instead of the `sympy` symbol, the result would also be just a float of ≈ 1.
 
 ### Basic Concept
 
@@ -69,8 +69,11 @@ The resulting gain is `P/(P+1)`.
         - See demo `samples/02_control_loop.py` for an example.
     - You can also plot all forward paths of a specified path in the system, by calling the `plot_paths()` function, with the names of the source and destination nodes as arguments.
         - See demo `samples/02_control_loop.py` for an example.
+    - You can customize the attributes handed into `graphviz`, by modifying the `graph_attrs` property.
+        - See demo `samples/02_control_loop.py` for an example.
 4. Calculate the path gain by calling the `calculate_gain()` method.
-    - See demo `samples/01_minimal.py.py` for an example.
+    - See demo `samples/04_graphstyle.py.py` for an example.
+    - See [Attributes - Graphviz](https://graphviz.org/doc/info/attrs.html) to learn about attributes.
 
 ### Applications
 
