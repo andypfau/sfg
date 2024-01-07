@@ -78,4 +78,4 @@ The resulting gain is `P/(P+1)` - a `sympy` expression that you can use to do al
 ### Applications
 
 - [Control loops](https://en.wikipedia.org/wiki/Control_loop) (see demo `samples/01_minimal.py.py`)
-- [Scattering Parameters](https://en.wikipedia.org/wiki/) (see `samples/03_forced_match.py` )
+- [Scattering Parameters](https://en.wikipedia.org/wiki/Scattering_parameters) (see `samples/03_forced_match.py` )
