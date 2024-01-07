@@ -15,8 +15,8 @@ control_loop.add('Loop.Sys', 'Out')
 control_loop.add('Loop.Sys', 'Loop.Σ', -1)
 
 # create plot
-#g = control_loop.plot()
-#g.render(outfile='output/02_control_loop.pdf', view=True, cleanup=True)
+g = control_loop.plot()
+g.render(outfile='output/02_control_loop.pdf', view=True, cleanup=True)
 
 # calculate the gain from reference to output
 total_gain = control_loop.calculate_gain('Ref', 'Out')
