@@ -86,25 +86,28 @@ class SFG:
         self.graph[self._split_name(from_node)].append((self._split_name(to_node),weight))
 
 
-    def plot(self, name: str = 'SFG') -> Digraph:
+    def plot(self, name: str = 'SFG', show_unity_weights: bool = True) -> Digraph:
         """
         Return a graphviz.Digraph of the SFG.
         
         Args:
-            name: name of the graphviz Digraph; only relevant if you want to export this later.
+            name:               name of the graphviz Digraph; only relevant if you want to export this later.
+            show_unity_weights: if False, edge labels for weights of 1 are hidden.
         """
-        return self._plot(self.graph, name)
+        return self._plot(self.graph, name, show_unity_weights)
 
 
-    def plot_loops(self, name_prefix: str = 'SFG', *args, **kwargs) -> list[Digraph]:
+    def plot_loops(self, name_prefix: str = 'SFG', find_kwargs: dict = {}, plot_kwargs: dict = {}) -> list[Digraph]:
         """
         Return a list graphviz.Digraph, one for each closed loop in the SFG.
         
         Args:
             name_prefix: name prefix for the graphviz Digraphs (suffix is just an int starting at 0);
                 only relevant if you want to export them later.
+            find_kwargs: keyword arguments for the find_loops() method.
+            plot_kwargs: keyword arguments for the plot() method.
         """
-        loops = self.find_loops(*args, **kwargs)
+        loops = self.find_loops(**find_kwargs)
         result = []
         for i,loop in enumerate(loops):
             graph = defaultdict(self._list_factory)
@@ -113,11 +116,11 @@ class SFG:
                 sn, dn = loop.nodes[i], loop.nodes[j]
                 w = loop.weights[j]
                 graph[sn].append((dn,w))
-            result.append(self._plot(graph, f'{name_prefix}{i}'))
+            result.append(self._plot(graph, f'{name_prefix}{i}', **plot_kwargs))
         return result
 
 
-    def plot_paths(self, from_node, to_node, name_prefix: str = 'SFG', *args, **kwargs) -> list[Digraph]:
+    def plot_paths(self, from_node, to_node, name_prefix: str = 'SFG', find_kwargs: dict = {}, plot_kwargs: dict = {}) -> list[Digraph]:
         """
         Return a list graphviz.Digraph, one for each forward path between two specified nodes in the SFG.
         
@@ -126,10 +129,12 @@ class SFG:
             to_node:   node name where the path ends.
             name_prefix: name prefix for the graphviz Digraphs (suffix is just an int starting at 0);
                 only relevant if you want to export them later.
+            find_kwargs: keyword arguments for the find_loops() method.
+            plot_kwargs: keyword arguments for the plot() method.
         
         Names can be provided the same way as for the `add()` method.
         """
-        paths = self.find_paths(from_node, to_node, *args, **kwargs)
+        paths = self.find_paths(from_node, to_node, **find_kwargs)
         result = []
         for i,path in enumerate(paths):
             graph = defaultdict(self._list_factory)
@@ -137,7 +142,7 @@ class SFG:
                 sn, dn = path.nodes[i], path.nodes[i+1]
                 w = path.weights[i+1]
                 graph[sn].append((dn,w))
-            result.append(self._plot(graph, f'{name_prefix}{i}'))
+            result.append(self._plot(graph, f'{name_prefix}{i}', **plot_kwargs))
         return result
 
 
@@ -288,7 +293,7 @@ class SFG:
         return (None, name)
 
     
-    def _plot(self, graph: dict[tuple[str,str],list], name) -> Digraph:
+    def _plot(self, graph: dict[tuple[str,str],list], name: str, show_unity_weights: bool) -> Digraph:
         """ Internal method to create a graphviz Digraph. """
         g = Digraph('G', filename=name)
         g.attr(**self.graph_attrs.graph)
@@ -323,6 +328,11 @@ class SFG:
         for source,destinations in graph.items():
             for (dest,weight) in destinations:
                 g.attr('edge', **self.graph_attrs.edge)
-                g.edge(str(source), str(dest), label=str(weight))
+                
+                if (not show_unity_weights) and (weight == 1):
+                    label = None
+                else:
+                    label = str(weight)
+                g.edge(str(source), str(dest), label=label)
         
         return g
