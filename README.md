@@ -12,9 +12,9 @@ Key features:
 
 ## Requirements
 
-Run `python -m pip install -r requirements.txt` to install the required packages.
+Run `python -m pip install -r requirements.txt` to install the required packages. The `sympy` package is not required by the library, but some demo files make use of it.
 
-Tested with Python 3.12.
+Tested with Python 3.11.
 
 
 ## How To Use

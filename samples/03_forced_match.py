@@ -31,4 +31,4 @@ for i,g in enumerate(network.plot_paths('Source.b', 'Source.a')):
 s11 = network.calculate_gain('Source.b', 'Source.a')
 print(f'S11, generic: {s11}')
 print(f'S11, generic ideal attenuator: {s11.subs(ΓA,0)}')
-print(f'S11, ideal 6 dB attenuator: {s11.subs(ΓA,0).subs(A,sympy.sympify('1/2'))}')
+print(f'S11, ideal 6 dB attenuator: {s11.subs(ΓA,0).subs(A,sympy.sympify("1/2"))}')
