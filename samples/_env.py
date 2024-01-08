@@ -7,4 +7,4 @@ import sys
 import os
 
 sys.path.insert(0, '.')
-os.makedirs('./output')
+os.makedirs('./output', exist_ok=True)
