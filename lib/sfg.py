@@ -277,7 +277,7 @@ class SFG:
 
         Σ = 0
         for path in paths:
-            Σ += product(path.weights) / get_cofactor(path.nodes)
+            Σ += product(path.weights) * get_cofactor(path.nodes)
         gain = Σ / get_cofactor()
         return gain
 
