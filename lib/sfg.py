@@ -158,9 +158,11 @@ class SFG:
         """
         loops = []
         def sort_loop(path, weights):
+            # two identical loops might appear different if they are shifted; this
+            #   method shifts the loop so that the lexically first node comes first
             i_start = 0
             for i,elem in enumerate(path):
-                if elem < path[i_start]:
+                if str(elem) < str(path[i_start]):
                     i_start = i
             for _ in range(i_start):
                 path = path[1:] + [path[0]]
@@ -293,7 +295,7 @@ class SFG:
         return (None, name)
 
     
-    def _plot(self, graph: dict[tuple[str,str],list], name: str, show_unity_weights: bool) -> Digraph:
+    def _plot(self, graph: dict[tuple[str,str],list], name: str, show_unity_weights: bool = True) -> Digraph:
         """ Internal method to create a graphviz Digraph. """
         g = Digraph('G', filename=name)
         g.attr(**self.graph_attrs.graph)
