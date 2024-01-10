@@ -206,6 +206,12 @@ class SFG:
         """
         from_node = self._split_name(from_node)
         to_node = self._split_name(to_node)
+
+        if from_node not in self.graph.keys():
+            raise ValueError(f'Node {from_node} does not exist as any source node')
+        if not any([to_node in node[0] for node in self.graph.values()]):
+            raise ValueError(f'Node {from_node} does not exist as any destination node')
+
         paths = []
         def find_paths(graph, origin, path, weights):
             if origin == to_node:
