@@ -4,7 +4,7 @@ SFG
 [Signal flow graph](https://en.wikipedia.org/wiki/Signal-flow_graph) calculation and plotting in Python.
 
 Key features:
-- Simple definition of the network by calling `add(source_name, destination_name, weight)` for each node in the graph.
+- Simple definition of the network by calling `add(source_name, destination_name, weight)` for each edge in the graph.
 - Plotting using the [graphviz](https://pypi.org/project/graphviz/) package, allowing to define groups for better readability.
 - Calculating any path gain using [Mason's gain formula](https://en.wikipedia.org/wiki/Mason's_gain_formula).
 - Allowing to use [sympy](https://pypi.org/project/sympy/) symbols to calculate the gain as an algebraic expression.
