@@ -56,7 +56,7 @@ g.render(outfile='output/06_parser.pdf', view=True, cleanup=True)
 
 sympy.init_printing() 
 for (src,dst) in paths:
-    path = sympy.simplify(sfg.calculate_gain(src, dst))
+    path = sympy.simplify(sfg.gain(src, dst))
 
     print()
     print(f'Path {src} -> {dst}:')

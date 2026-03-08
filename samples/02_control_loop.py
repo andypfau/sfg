@@ -19,7 +19,7 @@ g = control_loop.plot()
 g.render(outfile='output/02_control_loop.pdf', view=True, cleanup=True)
 
 # calculate the gain from reference to output
-total_gain = control_loop.calculate_gain('Ref', 'Out')
+total_gain: sympy.Expr = control_loop.gain('Ref', 'Out')
 total_gain_1k = total_gain.subs(ctrl_p, 1e3)
 print(f'Total gain, generic: {total_gain}')
 print(f'Total gain, with P = 1k: {total_gain_1k}')

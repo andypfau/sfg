@@ -43,7 +43,7 @@ See also `samples/01_minimal.py.py` and `samples/02_control_loop.py`:
     ... # save or display the graph
 
     # calculate the gain from reference to output
-    total_gain = control_loop.calculate_gain('Ref', 'Out')
+    total_gain = control_loop.gain('Ref', 'Out')
 
 The resulting graph is:
 
@@ -71,7 +71,7 @@ The resulting gain is `P/(P+1)` - a `sympy` expression that you can use to do al
         - See demo `samples/02_control_loop.py` for an example.
     - You can customize the attributes handed into `graphviz`, by modifying the `graph_attrs` property.
         - See demo `samples/02_control_loop.py` for an example.
-4. Calculate the path gain by calling the `calculate_gain()` method.
+4. Calculate the path gain by calling the `gain()` method.
     - See demo `samples/04_graphstyle.py.py` for an example.
     - See [Attributes - Graphviz](https://graphviz.org/doc/info/attrs.html) to learn about attributes.
 

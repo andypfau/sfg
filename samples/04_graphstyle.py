@@ -1,5 +1,5 @@
 import _env
-from lib import SFG
+from lib import SFG, GraphAttrPresets
 
 
 control_loop = SFG(group_name_sep='.')
@@ -11,7 +11,7 @@ control_loop.add('Loop.Sys', 'Loop.Σ', -1)
 
 
 # optional: reset to graphviz defaults (i.e. remove all custom attributes)
-control_loop.graph_attrs = SFG.GraphAttrPresets.GraphvizDefault
+control_loop.graph_attrs = GraphAttrPresets.GraphvizDefault
 
 # change graph direction to top-down
 control_loop.graph_attrs.graph['rankdir'] = 'TB'
