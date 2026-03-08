@@ -69,16 +69,16 @@ class TestClassBehavior(unittest.TestCase):
         self.assertEqual(sfg.gain('A', 'B'), 10)
 
 
-    def test_allows_strings_as_names(self):
-        sfg = SFG()
-        sfg.add('A', 'B', 10)
-        self.assertEqual(sfg.gain('A', 'B'), 10)
-
-
     def test_allows_ints_as_names(self):
         sfg = SFG()
         sfg.add(1, 2, 10)
         self.assertEqual(sfg.gain(1, 2), 10)
+
+
+    def test_allows_tuples_as_names(self):
+        sfg = SFG()
+        sfg.add(('Group 1','A'), ('Group 2','B'), 10)
+        self.assertEqual(sfg.gain(('Group 1','A'), ('Group 2','B')), 10)
 
 
     def test_empty_graph_fails(self):
@@ -102,6 +102,15 @@ class TestClassBehavior(unittest.TestCase):
             sfg.gain('A', 'D')
 
 
+    def test_works_with_float(self):
+        sfg = SFG()
+        sfg.add('A', 'B', 1.0)
+        sfg.add('B', 'C', 2.0)
+        g = sfg.gain('A', 'C')
+        self.assertIsInstance(g, float)
+        self.assertAlmostEqual(g, 1.0*2.0)
+
+
     def test_works_with_sympy(self):
         ab, bc = sympy.symbols('ab bc')
         sfg = SFG()
@@ -109,6 +118,36 @@ class TestClassBehavior(unittest.TestCase):
         sfg.add('B', 'C', bc)
         g = sfg.gain('A', 'C')
         self.assertIsInstance(g, sympy.Expr)
+        self.assertAlmostEqual(g.subs(ab,1).subs(bc,2), 1*2)
+
+
+    def test_works_with_some_custom_type(self):
+        class MyNumericClass:
+            @staticmethod
+            def _cast(obj):
+                if isinstance(obj,MyNumericClass):
+                    return obj.value
+                return obj
+            def __init__(self, value):
+                self.value = value
+            def __add__(self, other):
+                return MyNumericClass(self.value + MyNumericClass._cast(other))
+            def __radd__(self, other):
+                return MyNumericClass(self.value + MyNumericClass._cast(other))
+            def __mul__(self, other):
+                return MyNumericClass(self.value * MyNumericClass._cast(other))
+            def __rmul__(self, other):
+                return MyNumericClass(self.value * MyNumericClass._cast(other))
+            def __truediv__(self, other):
+                return MyNumericClass(self.value / MyNumericClass._cast(other))
+            def __rtruediv__(self, other):
+                return MyNumericClass(self.value / MyNumericClass._cast(other))
+        sfg = SFG()
+        sfg.add('A', 'B', MyNumericClass(1))
+        sfg.add('B', 'C', MyNumericClass(2))
+        g = sfg.gain('A', 'C')
+        self.assertIsInstance(g, MyNumericClass)
+        self.assertAlmostEqual(g.value, 1*2)
 
 
 
