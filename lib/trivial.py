@@ -27,6 +27,11 @@ class Path:
         return product
     
     def overlaps(self, other: Path) -> bool:
+        # TODO: this contains a bug
+        # consider this SFG:
+        #   -> A -> B -> B  ->
+        #      ^---/^---/
+        # this contains two loops, and they share node B, but they are not nested or anything!
         for node in self.nodes:
             if node in other.nodes:
                 return True

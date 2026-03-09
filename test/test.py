@@ -55,8 +55,56 @@ class TestCalculatedGains(unittest.TestCase):
         sfg.add('I', 'J', 0.2)
         sfg.add('J', 'H', 0.1)
         sfg.add('J', 'B')
-        self.assertAlmostEqual(sfg.gain('A', 'F') , 1.7160686)
+        self.assertAlmostEqual(sfg.gain('A', 'F') , 1.7160686)  # verified with LTspice
         self.assertNotAlmostEqual(sfg.gain('B', 'C') , 1/(1-1*0.1))  # this node is part of a bigger loop, so the simple loop gain must be incorrect
+
+
+    def test_touching_loops_1(self):
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 3, 10)
+        sfg.add(3, 4)
+        sfg.add(4, 5, 10)
+        sfg.add(5, 4, 10)
+        sfg.add(5, 2, 10)
+        sfg.add(5, 6)
+        self.assertAlmostEqual(sfg.gain(1, 6) , -0.09099181)  # verified with LTspice
+
+
+    def test_touching_loops_2(self):
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 3)
+        sfg.add(3, 4,10)
+        sfg.add(4, 5, 10)
+        sfg.add(5, 3, 10)
+        sfg.add(4, 2, 10)
+        sfg.add(5, 6)
+        self.assertAlmostEqual(sfg.gain(1, 6) , -0.09099181)  # verified with LTspice
+
+
+    def test_touching_loops_3(self):
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 3)
+        sfg.add(3, 3, 10)
+        sfg.add(3, 4)
+        sfg.add(4, 2, 10)
+        sfg.add(4, 5)
+        self.assertAlmostEqual(sfg.gain(1, 5) , -0.052631579)  # verified with LTspice
+
+
+    def test_barely_touching_loops(self):
+        # this graph has two loops which share a node, but technically they should not be considered "touching",
+        #   because the loops itself not nested or anything
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 3, 10)
+        sfg.add(3, 2, 10)
+        sfg.add(3, 4, 10)
+        sfg.add(4, 3, 10)
+        sfg.add(4, 5)
+        self.assertAlmostEqual(sfg.gain(1, 5) , 0.01020304)  # verified with LTspice
 
 
 
