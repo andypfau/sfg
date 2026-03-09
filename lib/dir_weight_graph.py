@@ -81,13 +81,13 @@ class DirectedWeightedGraph:
                         loop_weights = [*accumulated_weights[idx:], edge.weight]
                         assert len(loop_path) == len(loop_weights)
                         
-                        # cycle the path until it starts with the lowest node
-                        assert len(loop_path) >= 2
-                        lowest_node = min(loop_path)
-                        while loop_path[0] != lowest_node:
-                            loop_path = [loop_path[-1], *loop_path[:-1]]
-                            loop_edges = [loop_edges[-1], *loop_edges[:-1]]
-                            loop_weights = [loop_weights[-1], *loop_weights[:-1]]
+                        if len(loop_path) >= 2:
+                            # cycle the path until it starts with the lowest node
+                            lowest_node = min(loop_path)
+                            while loop_path[0] != lowest_node:
+                                loop_path = [loop_path[-1], *loop_path[:-1]]
+                                loop_edges = [loop_edges[-1], *loop_edges[:-1]]
+                                loop_weights = [loop_weights[-1], *loop_weights[:-1]]
 
                         if loop_path not in [path.nodes for path in loops]:
                             loops.append(Path(loop_path, loop_weights, loop_edges))
