@@ -27,6 +27,23 @@ class TestCalculatedGains(unittest.TestCase):
         self.assertAlmostEqual(sfg.gain('A', 'D'), 10/(1-10*1))
 
 
+    def test_single_short_loop(self):
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 2, 2)
+        sfg.add(2, 3)
+        self.assertAlmostEqual(sfg.gain(1, 3), -1)
+
+
+    def test_double_short_loop(self):
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 2, 2)
+        sfg.add(2, 2, 2)
+        sfg.add(2, 3)
+        self.assertAlmostEqual(sfg.gain(1, 3), -1/3)  # verified with LTspice
+
+
     def test_double_loop(self):
         sfg = SFG()
         sfg.add('A', 'B')
@@ -95,8 +112,20 @@ class TestCalculatedGains(unittest.TestCase):
 
 
     def test_barely_touching_loops_1(self):
-        # this graph has two loops which share a node, but technically they should not be considered "touching",
-        #   because the loops itself not nested or anything
+        # two subsequent loops
+        sfg = SFG()
+        sfg.add(1, 2)
+        sfg.add(2, 3, 10)
+        sfg.add(3, 2, 10)
+        sfg.add(3, 4)
+        sfg.add(4, 5, 10)
+        sfg.add(5, 4, 10)
+        sfg.add(5, 6)
+        self.assertAlmostEqual(sfg.gain(1, 6) , 0.01020304)  # verified with LTspice
+
+
+    def test_barely_touching_loops_2(self):
+        # two subsequent loops, similar to the previous one, but both feedback paths draw from node 3
         sfg = SFG()
         sfg.add(1, 2)
         sfg.add(2, 3, 10)
@@ -104,17 +133,7 @@ class TestCalculatedGains(unittest.TestCase):
         sfg.add(3, 4, 10)
         sfg.add(4, 3, 10)
         sfg.add(4, 5)
-        self.assertAlmostEqual(sfg.gain(1, 5) , 0.01020304)  # verified with LTspice
-
-
-    def test_barely_touching_loops_2(self):
-        sfg = SFG()
-        sfg.add(1, 2)
-        sfg.add(2, 3)
-        sfg.add(3, 2, 10)
-        sfg.add(3, 2, 10)
-        sfg.add(3, 4)
-        self.assertAlmostEqual(sfg.gain(1, 4) , -0.052631579)  # verified with LTspice
+        self.assertAlmostEqual(sfg.gain(1, 4) , -0.50251257)  # verified with LTspice
 
 
 

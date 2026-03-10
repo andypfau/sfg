@@ -89,7 +89,9 @@ class DirectedWeightedGraph:
                                 loop_edges = [loop_edges[-1], *loop_edges[:-1]]
                                 loop_weights = [loop_weights[-1], *loop_weights[:-1]]
 
-                        if loop_path not in [path.nodes for path in loops]:
+                        # important: check uniqueness by edges; there may be two loops A->B in parallel, which
+                        #   share the same nodes, but the edge objects are different.
+                        if loop_edges not in [path.edges for path in loops]:
                             loops.append(Path(loop_path, loop_weights, loop_edges))
                     else:
                         find_loop_paths(edge.destination, [*accumulated_path,edge.destination], [*accumulated_weights,edge.weight], [*accumulated_edges,edge])
