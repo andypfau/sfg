@@ -12,9 +12,15 @@ Key features:
 
 ## Requirements
 
-Run `python -m pip install -r requirements.txt` to install the required packages. The `sympy` package is not required by the library, but some demo files make use of it.
+Use the environment in `pipenv/` with [Pipenv](https://pipenv.pypa.io/):
+```bash
+cd pipenv
+python -m pipenv source
+```
 
-Tested with Python 3.11.
+If you don't want to use Pipenv, you can also check out the required Python packets in the "packages" section of `Pipfile`.
+
+Tested with python 3.14.
 
 
 ## How To Use
